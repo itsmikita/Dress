@@ -160,7 +160,7 @@
 	/**
 	 * Plugin
 	 */
-	$.fn.juicy = function() {
+	$.fn.juicify = function() {
 		$( this ).each( function() {
 			if( $( this ).is( 'select' ) ) {
 				new Selectbox( this ).init();
