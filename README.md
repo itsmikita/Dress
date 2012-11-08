@@ -1,4 +1,4 @@
-Juicify
-=======
+jQuery Dress
+============
 
-This script wraps unstylable form elements into stylable elements. Supports even dynamically loaded elements.
+This script dresses the undressed elements like selects, checkboxes and radiobuttons and make it far more stylable.

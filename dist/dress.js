@@ -1,5 +1,5 @@
 /**
- * @file: juicify.js
+ * @file: dress.js
  *
  * This is a simple jQuery plugin that wraps unstylable form elements
  * into stylable elemnts. This plugin even supports dynamicly laoded DOM.
@@ -48,11 +48,11 @@
 		 * Here where magic happens
 		 */
 		wrap: function() {
-			if( this.$elem.hasClass( 'juicified' ) )
+			if( this.$elem.is( '.dressed' ) )
 				return;
 			
 			this.$elem.wrap( '<div class="selectbox ' + this.$elem.attr( 'class' ) + '" />' );
-			this.$elem.attr( 'class', '' ).addClass( 'juicified' ).closest( '.selectbox' ).append( $( '<span />' ) );
+			this.$elem.attr( 'class', '' ).addClass( 'dressed' ).closest( '.selectbox' ).append( $( '<span />' ) );
 			
 			this.listen();
 		},
@@ -92,11 +92,11 @@
 		 * Here where magic happens
 		 */
 		wrap: function() {
-			if( this.$elem.hasClass( 'juicified' ) )
+			if( this.$elem.is( '.dressed' ) )
 				return;
 			
 			this.$elem.wrap( '<div class="checkbox ' + this.$elem.attr( 'class' ) + '" />' );
-			this.$elem.attr( 'class', '' ).addClass( 'juicified' );
+			this.$elem.attr( 'class', '' ).addClass( 'dressed' );
 			
 			this.listen();
 		},
@@ -135,11 +135,11 @@
 		 * Here where magic happens
 		 */
 		wrap: function() {
-			if( this.$elem.hasClass( 'juicified' ) )
+			if( this.$elem.is( '.dressed' ) )
 				return;
 			
 			this.$elem.wrap( '<div class="radiobutton ' + this.$elem.attr( 'class' ) + '" />' );
-			this.$elem.attr( 'class', '' ).addClass( 'juicified' );
+			this.$elem.attr( 'class', '' ).addClass( 'dressed' );
 			
 			this.listen();
 		},
@@ -160,7 +160,7 @@
 	/**
 	 * Plugin
 	 */
-	$.fn.juicify = function() {
+	$.fn.dress = function() {
 		$( this ).each( function() {
 			if( $( this ).is( 'select' ) ) {
 				new Selectbox( this ).init();
