@@ -1,34 +1,18 @@
 /**
- * @file: dress.js
+ * jQuery Dress
  *
- * This is a simple jQuery plugin that wraps unstylable form elements
- * into stylable elemnts. This plugin even supports dynamicly laoded DOM.
+ * This jQuery plugin dresses unstylable form elements into stylable elemnts.
  *
  * Author: Mikita Stankiewicz
  * URL: http://designed.bymikita.com/juicy/
  * Version: 0.2
- *
- *
- * Markup:
- *
- * 1. Basic syntax:
- * <div [class=*]>
- *     [<span>{value}</span>]
- *     [<select>...</select>|<input />]
- * </div>
- *
- * 2. How-to:
- * $( selector ).juicy();
- *
- * 3. Update elements:
- * $( selector ).juicy();
  */
 
 ;( function( $, window, document, undefined ) {
 	/**
 	 * Selectbox constructor
 	 *
-	 * @param element elem - Element
+	 * @param element elem - jQuery selector
 	 */
 	var Selectbox = function( elem ) {
 		this.$elem = $( elem );
@@ -45,7 +29,8 @@
 		},
 		
 		/**
-		 * Here where magic happens
+		 * Wrap selectbox with stylable elements
+		 * Don't touch already dressed elements
 		 */
 		wrap: function() {
 			if( this.$elem.is( '.dressed' ) )
@@ -58,7 +43,7 @@
 		},
 		
 		/**
-		 * Add event listeners
+		 * Add event listeners to simulate standard behavior
 		 */
 		listen: function() {
 			this.$elem.focus( function() {
@@ -89,7 +74,8 @@
 		},
 		
 		/**
-		 * Here where magic happens
+		 * Wrap checkbox with stylable elements
+		 * Don't touch already dressed elements
 		 */
 		wrap: function() {
 			if( this.$elem.is( '.dressed' ) )
@@ -102,7 +88,7 @@
 		},
 		
 		/**
-		 * Add event listeners
+		 * Add event listeners to simulate standard behavior
 		 */
 		listen: function() {
 			this.$elem.click( function() {
@@ -115,7 +101,7 @@
 	};
 	
 	/**
-	 * Radio
+	 * Radiobutton
 	 */
 	var Radiobutton = function( elem ) {
 		this.$elem = $( elem );
@@ -132,7 +118,8 @@
 		},
 		
 		/**
-		 * Here where magic happens
+		 * Wrap radiobutton with stylable elements
+		 * Don't touch already dressed elements
 		 */
 		wrap: function() {
 			if( this.$elem.is( '.dressed' ) )
@@ -145,7 +132,7 @@
 		},
 		
 		/**
-		 * Add event listeners
+		 * Add event listeners to simulate standard behavior
 		 */
 		listen: function() {
 			this.$elem.click( function() {
