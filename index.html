@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+
+<head>
+	
+	<meta charset="utf-8">
+	
+	<title>Dress</title>
+	
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	
+	<link rel="shortcut icon" href="">
+	<link rel="apple-touch-icon" href="">
+	<link rel="apple-touch-icon" sizes="72x72" href="">
+	<link rel="apple-touch-icon" sizes="114x114" href="">
+	<link rel="stylesheet" type="text/css" href="assets/styles/style.css">
+	
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.1/jquery.min.js"></script>
+	<script src="dress.js"></script>
+	<!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	
+</head>
+<body>
+	
+	<article id="content">
+		<div class="wrapper">
+			
+			<hr>
+			
+			<section>
+				<label>Selecbox:</label>
+				<select name="selectbox">
+					<option value="">Select one...</option>
+					<option value="1">One</option>
+					<option value="2">Two</option>
+					<option value="3">Three</option>
+				</select>
+			</section>
+			
+			<section>
+				<label>Radiobuttons:</label>
+				<label class="for-radio">
+					<input type="radio" name="radio" value="1" checked="checked">
+					Option 1
+				</label>
+				<label class="for-radio">
+					<input type="radio" name="radio" value="1">
+					Option 2
+				</label>
+			</section>
+			
+			<section>
+				<label>Checkbox:</label>
+				<label class="for-checkbox">
+					<input type="checkbox" name="checkbox" value="1" checked="checked">
+					Uncheck me!
+				</label>
+			</section>
+			
+			<hr>
+			
+		</div>
+	</article>
+	
+	<script type="text/javascript">
+		$( function() {
+			$( 'select, :checkbox, :radio' ).dress();
+		} );
+	</script>
+	
+</body>
+</html>
