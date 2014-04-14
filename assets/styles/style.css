@@ -48,7 +48,7 @@ label {
 	margin-bottom: 10px;
 }
 
-.selectbox {
+.dress-select {
 	background: #f6f6f6;
 	background: linear-gradient( top, #fdfdfd 0%, #f0f0f0 100% );
 	background: -webkit-linear-gradient( top, #fdfdfd 0%, #f0f0f0 100% );
@@ -69,7 +69,7 @@ label {
 	position: relative;
 	min-width: 140px;
 }
-.selectbox select {
+.dress-select select {
 	border: none;
 	font-size: 18px;
 	height: 100%;
@@ -80,30 +80,30 @@ label {
 	width: 100%;
 	z-index: 2;
 }
-.selectbox:before,
-.selectbox:after {
+.dress-select:before,
+.dress-select:after {
 	font-family: sans-serif;
 	font-size: 8px;
 	right: 10px;
 	position: absolute;
 	z-index: 1;
 }
-.selectbox:before {
+.dress-select:before {
 	content: '\25B2';
 	top: 7px;
 }
-.selectbox:after {
+.dress-select:after {
 	content: '\25BC';
 	top: 17px;
 }
-.selectbox .selectbox-value {
+.dress-select .dress-value {
 	display: block;
 	overflow: hidden;
 	margin: 8px 36px 8px 12px;
 	white-space: nowrap;
 }
 
-.checkbox {
+.dress-checkbox {
 	background: #f6f6f6;
 	background: linear-gradient( top, #fdfdfd 0%, #f0f0f0 100% );
 	background: -webkit-linear-gradient( top, #fdfdfd 0%, #f0f0f0 100% );
@@ -124,7 +124,7 @@ label {
 	width: 14px;
 	vertical-align: top;
 }
-.checkbox [type=checkbox] {
+.dress-checkbox [type=checkbox] {
 	border: none;
 	font-size: 18px;
 	height: 100%;
@@ -135,7 +135,7 @@ label {
 	width: 100%;
 	z-index: 2;
 }
-.checkbox.checked:after {
+.dress-checkbox.dress-checked:after {
 	content: '\2713';
 	font-family: sans-serif;
 	font-size: 16px;
@@ -146,7 +146,7 @@ label {
 	z-index: 1;
 }
 
-.radio {
+.dress-radio {
 	background: #f6f6f6;
 	background: linear-gradient( top, #fdfdfd 0%, #f0f0f0 100% );
 	background: -webkit-linear-gradient( top, #fdfdfd 0%, #f0f0f0 100% );
@@ -167,7 +167,7 @@ label {
 	width: 14px;
 	vertical-align: top;
 }
-.radio [type=radio] {
+.dress-radio [type=radio] {
 	border: none;
 	font-size: 18px;
 	height: 100%;
@@ -178,7 +178,7 @@ label {
 	width: 100%;
 	z-index: 2;
 }
-.radio.checked:after {
+.dress-radio.dress-checked:after {
 	content: '\7';
 	font-family: sans-serif;
 	font-size: 16px;

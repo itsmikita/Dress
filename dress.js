@@ -4,8 +4,8 @@
  * This jQuery plugin dresses unstylable form elements into stylable elemnts.
  *
  * Author: Mikita Stankiewicz
- * URL: http://designed.bymikita.com/dress/
- * Version: 0.3
+ * URL: https://github.com/itsmikita/Dress
+ * Version: 0.4
  */
 
 ;( function( $, window, document, undefined ) {
@@ -57,18 +57,20 @@
 			switch( tag ) {
 				case 'select':
 					selector
-						.wrap( '<span class="selectbox" />' )
-						.parent().append( '<span class="selectbox-value" />' );
+						.wrap( '<span class="dress-select" />' )
+						.parent().append( '<span class="dress-value" />' );
 					break;
 				
 				case 'input':
 					if( selector.is( ':checkbox' ) )
-						selector.wrap( '<span class="checkbox" />' );
+						selector.wrap( '<span class="dress-checkbox" />' );
 					else if( selector.is( ':radio' ) )
-						selector.wrap( '<span class="radio" />' );
+						selector.wrap( '<span class="dress-radio" />' );
 					break;
 			}
 			
+			selector.parent().addClass( selector.attr( 'class' ) );
+			selector.attr( 'class', '' );
 			selector.addClass( 'dressed' );
 		},
 		
@@ -80,29 +82,44 @@
 		 */
 		listen: function( tag, selector ) {
 			function update() {
+				//selector.parent().removeClass( 'dress-default' );
+				
 				if( selector.is( ':radio' ) ) {
 					if( ! selector.is( ':checked' ) )
 						return;
 					
-					$( '[name=' + selector.attr( 'name' ) + ']' ).parent().removeClass( 'checked' );
+					$( '[name=' + selector.attr( 'name' ) + ']' ).parent().removeClass( 'dress-checked' );
 					
-					selector.parent().addClass( 'checked' );
+					selector.parent().addClass( 'dress-checked' );
 				}
 				if( selector.is( ':checkbox' ) ) {
 					if( selector.is( ':checked' ) )
-						selector.parent().addClass( 'checked' );
+						selector.parent().addClass( 'dress-checked' );
 					else
-						selector.parent().removeClass( 'checked' );
+						selector.parent().removeClass( 'dress-checked' );
 				}
 				else if( selector.is( 'select' ) ) {
 					selector.parent().find( '.selectbox-value' ).text( selector.find( ':selected' ).text() );
+					
+					if( '' == selector.find( ':selected' ).val() )
+						//selector.parent().addClass( 'default-value' );
 				}
 			};
 			
-			selector
-				.on( 'change', update );
+			function focus() {
+				selector.parent().addClass( 'dress-focused' );
+			};
 			
-			// init
+			function blur() {
+				selector.parent().removeClass( 'dress-focused' );
+			};
+			
+			selector
+				.on( 'change', update )
+				.on( 'focus', focus )
+				.on( 'blur', blur );
+			
+			// Init
 			update();
 		},
 	};
