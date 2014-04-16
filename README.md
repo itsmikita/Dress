@@ -14,8 +14,16 @@ Major improvements. Added support for `.dressed` and `.ignore-dressing`.
 #### 0.4
 Added support for `:focus` state, `.dress-focused`.
 
+#### 0.5
+Added support for [type=number]. Minor bugfixes.
+
+#### 0.6
+Now your gorgeous elements are wrapped automatically. (I didn't manage `DOMTreeModified` event to work, so I use `$.ajaxSuccess()` for now as we usually modify DOM at this point)
+
 
 Future improvements
 -------------------
-#### 0.5
-Wrap `<input type="number">`. The original tag has non-stylable arrows!
+
+- Find a better solution to automatically dress new elements (it is using `$.ajaxSuccess()` at the moment as `DOMTreeModified` doesn't really work).
+
+
