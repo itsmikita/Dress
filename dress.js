@@ -1,14 +1,14 @@
 /**
  * jQuery Dress
  *
- * This jQuery plugin dresses unstylable form elements into stylable elemnts.
+ * Wraps unstylable inputs into stylable elements.
  *
  * Author: Mikita Stankiewicz
  * URL: https://github.com/itsmikita/Dress
- * Version: 0.4
+ * Version: 0.6
  */
 
-;( function( $, window, document, undefined ) {
+;( function( $ ) {
 	/**
 	 * Constructor
 	 *
@@ -30,97 +30,109 @@
 		init: function( selector ) {
 			var self = this;
 			
-			selector.each( function() {
-				if( $( this ).is( '.dressed' ) )
-					return;
-				
-				var tag = $( this ).prop( 'tagName' ).toLowerCase();
-				
-				self.wrap( tag, $( this ) );
-				self.listen( tag, $( this ) );
+			function wrap() {
+				$( selector ).each( function() {
+					if( $( this ).is( '.ignore-dressing' ) || $( this ).is( '.dressed' ) )
+						return;
+					
+					if( $( this ).is( 'select' ) )
+						self.wrapSelect( this );
+					
+					else if( $( this ).is( ':checkbox' ) || $( this ).is( ':radio' ) )
+						self.wrapCheckable( this );
+					
+					else if( 'number' == $( this ).attr( 'type' ) )
+						self.wrapNumber( this );
+				} );
+			}
+			
+			wrap();
+			
+			// We usually adding new dom on AJAX
+			$( document ).ajaxSuccess( function() {
+				wrap();
 			} );
 		},
 		
 		/**
-		 * Wrap
+		 * Wrap select
 		 *
-		 * @param String tag
-		 * @param Object selector
+		 * @param object element
 		 */
-		wrap: function( tag, selector ) {
-			if( selector.is( '.ignore-dressing' ) )
-				return;
+		wrapSelect: function( element ) {
+			$( element )
+				.wrap( '<span class="dress-select" />' )
+				.on( 'change', function() {
+					var selected = $( 'option', this ).filter( ':selected' );
+					
+					$( this ).parent().removeClass( 'dress-default' );
+					
+					if( selected.length )
+						$( this ).siblings( '.dress-value' ).text( selected.text() );
+					else {
+						$( this ).parent().addClass( 'dress-default' );
+						$( this ).siblings( '.dress-value' ).text( $( 'option', this ).first().text() );
+					}
+				} )
+				.on( 'focus', function() {
+					$( this ).parent().addClass( 'dress-focused' );
+				} )
+				.on( 'blur', function() {
+					$( this ).parent().removeClass( 'dress-focused' );
+				} )
+				.parent().addClass( classes ).append( '<span class="dress-value" />' );
 			
-			if( selector.is( '.dressed' ) )
-				return;
-			
-			switch( tag ) {
-				case 'select':
-					selector
-						.wrap( '<span class="dress-select" />' )
-						.parent().append( '<span class="dress-value" />' );
-					break;
-				
-				case 'input':
-					if( selector.is( ':checkbox' ) )
-						selector.wrap( '<span class="dress-checkbox" />' );
-					else if( selector.is( ':radio' ) )
-						selector.wrap( '<span class="dress-radio" />' );
-					break;
-			}
-			
-			selector.parent().addClass( selector.attr( 'class' ) );
-			selector.attr( 'class', '' );
-			selector.addClass( 'dressed' );
+			$( element ).trigger( 'change' );
 		},
 		
 		/**
-		 * Listen
-		 * 
-		 * @param String tag
-		 * @param Object selector
+		 * Wrap :checkbox and :radio
+		 *
+		 * @param object element
 		 */
-		listen: function( tag, selector ) {
-			function update() {
-				//selector.parent().removeClass( 'dress-default' );
+		wrapCheckable: function( element ) {
+			var tag = $( element ).attr( 'type' );
+			
+			$( element )
+				.wrap( '<span class="dress-' + tag + '">' )
+				.on( 'change', function() {
+					$( this ).parent().removeClass( 'dress-checked' );
+					
+					if( $( this ).is( ':checked' ) )
+						$( this ).parent().addClass( 'dress-checked' );
+				} );
+		},
+		
+		/**
+		 * Wrap [type=number]
+		 *
+		 * @param object element
+		 */
+		wrapNumber: function( element ) {
+			$( element )
+				.attr( 'type', 'hidden' )
+				.on( 'change', function() {
+					$( this ).siblings( '.dress-value' ).text( $( this ).val() );
+				} )
+				.wrap( '<span class="dress-number">' )
+				.parent()
+					.append( '<a href="#" class="dress-number-plus"></a>' )
+					.append( '<a href="#" class="dress-number-minus"></a>' )
+					.append( '<span class="dress-value"></span>' );
+			
+			$( element ).siblings( 'a' ).on( 'click', function( event ) {
+				event.preventDefault();
 				
-				if( selector.is( ':radio' ) ) {
-					if( ! selector.is( ':checked' ) )
-						return;
-					
-					$( '[name=' + selector.attr( 'name' ) + ']' ).parent().removeClass( 'dress-checked' );
-					
-					selector.parent().addClass( 'dress-checked' );
-				}
-				if( selector.is( ':checkbox' ) ) {
-					if( selector.is( ':checked' ) )
-						selector.parent().addClass( 'dress-checked' );
-					else
-						selector.parent().removeClass( 'dress-checked' );
-				}
-				else if( selector.is( 'select' ) ) {
-					selector.parent().find( '.selectbox-value' ).text( selector.find( ':selected' ).text() );
-					
-					if( '' == selector.find( ':selected' ).val() )
-						//selector.parent().addClass( 'default-value' );
-				}
-			};
+				var value = parseInt( $( this ).siblings( 'input' ).val() ),
+					modifier = 1;
+				
+				if( $( this ).is( '.dress-number-minus' ) )
+					modifier = -1;
+				
+				$( this ).siblings( 'input' ).val( value + modifier ).trigger( 'change' );
+			} );
 			
-			function focus() {
-				selector.parent().addClass( 'dress-focused' );
-			};
-			
-			function blur() {
-				selector.parent().removeClass( 'dress-focused' );
-			};
-			
-			selector
-				.on( 'change', update )
-				.on( 'focus', focus )
-				.on( 'blur', blur );
-			
-			// Init
-			update();
+			$( element ).trigger( 'change' );
 		},
 	};
 	
@@ -132,4 +144,4 @@
 		
 		return this;
 	};
-} )( jQuery, window, document );
+} )( jQuery );
