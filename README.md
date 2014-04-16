@@ -3,6 +3,13 @@ jQuery Dress
 
 Wraps unstylable form inputs into stylable ones (`.dress-select`, `.dress-checkbox` and `.dress-radio` for now).
 
+
+How to use
+----------
+
+Run `$( 'select, :radio, :checkbox, [type=number]' ).dress()`.
+
+
 Changes
 -------
 #### 0.2
