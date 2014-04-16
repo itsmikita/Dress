@@ -15,7 +15,7 @@ Major improvements. Added support for `.dressed` and `.ignore-dressing`.
 Added support for `:focus` state, `.dress-focused`.
 
 #### 0.5
-Added support for [type=number]. Minor bugfixes.
+Added support for `[type=number]`. Minor bugfixes.
 
 #### 0.6
 Now your gorgeous elements are wrapped automatically. (I didn't manage `DOMTreeModified` event to work, so I use `$.ajaxSuccess()` for now as we usually modify DOM at this point)
