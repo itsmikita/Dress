@@ -96,7 +96,10 @@
 			$( element )
 				.wrap( '<span class="dress-' + tag + '">' )
 				.on( 'change', function() {
-					$( this ).parent().removeClass( 'dress-checked' );
+					if( $( this ).is( ':radio' ) )
+						$( '[name=' + $( this ).attr( 'name' ) + ']' ).parent().removeClass( 'dress-checked' );
+					else
+						$( this ).parent().removeClass( 'dress-checked' );
 					
 					if( $( this ).is( ':checked' ) )
 						$( this ).parent().addClass( 'dress-checked' );
